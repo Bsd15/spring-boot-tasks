@@ -30,30 +30,54 @@ public class TrackController {
         return new ResponseEntity<>(newTrack, HttpStatus.CREATED);
     }
 
+    /**
+     * Search Track
+     * @param id Id of the track
+     * @return Track
+     */
     @GetMapping("track/{id}")
     public ResponseEntity<?> getTrack(@PathVariable int id) {
         Track retrievedTrack = trackService.getTrack(id);
         return new ResponseEntity<>(retrievedTrack,HttpStatus.FOUND);
     }
 
+    /**
+     * Get all tracks
+     * @return All tracks in the database
+     */
     @GetMapping("track")
     public ResponseEntity<?> getAllTracks() {
         List<Track> trackList = trackService.getAllTracks();
         return new ResponseEntity<>(trackList, HttpStatus.FOUND);
     }
 
+    /**
+     * Delete track by ID
+     * @param id Track Id to be deleted
+     * @return Deleted Track
+     */
     @DeleteMapping("track/{id}")
     public ResponseEntity<?> deleteTrackById(@PathVariable int id) {
         Track deletedTrack = trackService.deleteTrackById(id);
         return new ResponseEntity<>(deletedTrack, HttpStatus.OK);
     }
 
+    /**
+     * Delete all tracks in the database.
+     * @return Success Message when all tracks are deleted.
+     */
     @DeleteMapping("track")
     public ResponseEntity<?> deleteAllTracks() {
         trackService.deleteAllTracks();
         return new ResponseEntity<>("Deleted ", HttpStatus.OK);
     }
 
+    /**
+     * Update Track by Id.
+     * @param id Id of the track to be updated.
+     * @param track Track object containing updated track details.
+     * @return Updated track
+     */
     @PutMapping("track/{id}")
     public ResponseEntity<?> updateTrackById(@PathVariable("id") int id ,@RequestBody Track track) {
         Track updatedTrack = trackService.updateTrackById(id,track);
