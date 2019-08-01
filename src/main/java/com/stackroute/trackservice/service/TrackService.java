@@ -21,5 +21,5 @@ public interface TrackService {
 
     public void deleteAllTracks();
 
-    public Track updateTrackById(Track track);
+    public Track updateTrackById(int trackId, Track updatedTrack);
 }

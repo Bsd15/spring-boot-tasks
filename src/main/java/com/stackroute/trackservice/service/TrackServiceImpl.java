@@ -28,7 +28,7 @@ public class TrackServiceImpl implements TrackService {
         if (track != null) {
             return trackRepository.save(track);
         }
-        return null;
+        return track;
     }
 
     /**
@@ -78,17 +78,17 @@ public class TrackServiceImpl implements TrackService {
 
     /**
      * Finds the Track by Id as a reference and updated it's fields and save's it.
-     * @param track Track to be updated
-     * @return Updated track
+     * @param trackId Id of the track to be updated
+     * @param updatedTrack Track object containing the updated details
+     * @return Updated track.
      */
     @Override
-    public Track updateTrackById(Track track) {
+    public Track updateTrackById(int trackId, Track updatedTrack) {
 //        Gets the reference to the Track object (lazy)
-        Track trackToUpdate = trackRepository.getOne(track.getTrackId());
-        trackToUpdate.setTrackName(track.getTrackName());
-        trackToUpdate.setComments(track.getComments());
+        Track trackToUpdate = trackRepository.getOne(trackId);
+        trackToUpdate.setTrackName(updatedTrack.getTrackName());
+        trackToUpdate.setComments(updatedTrack.getComments());
         return trackRepository.save(trackToUpdate);
     }
-
 
 }
