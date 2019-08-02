@@ -56,7 +56,7 @@ public class TrackController {
      * @param trackName Name of the track to search.
      * @return List of tracks
      */
-    @GetMapping("tracks/name/{trackName}")
+    @GetMapping("tracks/{trackName}")
     public ResponseEntity<?> searchTrackByName(@PathVariable String trackName) {
         List<Track> foundTracksList = trackService.searchTrackByName(trackName);
         return new ResponseEntity<>(foundTracksList, HttpStatus.FOUND);
