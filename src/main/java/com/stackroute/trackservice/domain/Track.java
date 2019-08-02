@@ -14,6 +14,15 @@ public class Track {
     private String trackName;
     private String comments;
 
+    public Track() {
+    }
+
+    public Track(int trackId, String trackName, String comments) {
+        this.trackId = trackId;
+        this.trackName = trackName;
+        this.comments = comments;
+    }
+
     public int getTrackId() {
         return trackId;
     }
