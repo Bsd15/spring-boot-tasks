@@ -54,10 +54,16 @@ public class TrackServiceImpl implements TrackService {
     /**
      * Returns all the tracks in the database.
      * @return List of Tracks as List<Track>
+     * @throws Exception
      */
     @Override
-    public List<Track> getAllTracks() {
-        return trackRepository.findAll();
+    public List<Track> getAllTracks() throws Exception
+    {
+        List<Track> allTracks = trackRepository.findAll();
+        if (allTracks.isEmpty()) {
+            throw new Exception("No Tracks in the table.");
+        }
+        return allTracks;
     }
 
     /**

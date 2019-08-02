@@ -17,13 +17,13 @@ public interface TrackService {
 
     public Track getTrack(int id) throws TrackNotFoundException;
 
-    public List<Track> getAllTracks();
+    public List<Track> getAllTracks() throws Exception;
 
     public List<Track> searchTrackByName(String trackName) throws TrackNotFoundException;
 
     public Track deleteTrackById(int id) throws TrackNotFoundException;
 
-    public void deleteAllTracks() throws TrackNotFoundException;
+    public void deleteAllTracks();
 
     public Track updateTrackById(int trackId, Track updatedTrack) throws TrackNotFoundException;
 }
