@@ -50,6 +50,11 @@ public class TrackServiceImpl implements TrackService {
         return trackRepository.findAll();
     }
 
+    /**
+     * Search tracks by Name
+     * @param trackName Name of the track to be searched
+     * @return List of tracks found with the given name
+     */
     @Override
     public List<Track> searchTrackByName(String trackName) {
         List<Track> foundTracksList = trackRepository.searchTrackByName(trackName);
