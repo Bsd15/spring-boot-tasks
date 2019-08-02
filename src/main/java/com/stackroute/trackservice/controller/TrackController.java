@@ -24,6 +24,7 @@ public class TrackController {
 
     /**
      * Insert track into the database
+     *
      * @param track Track to be inserted
      * @return Newly created track
      */
@@ -44,6 +45,7 @@ public class TrackController {
 
     /**
      * Search Track
+     *
      * @param id Id of the track
      * @return Track
      */
@@ -53,7 +55,7 @@ public class TrackController {
         ResponseEntity responseEntity = null;
         try {
             retrievedTrack = trackService.getTrack(id);
-            responseEntity = new ResponseEntity<>(retrievedTrack,HttpStatus.FOUND);
+            responseEntity = new ResponseEntity<>(retrievedTrack, HttpStatus.FOUND);
         } catch (TrackNotFoundException trackNotFoundException) {
             responseEntity = new ResponseEntity<>(
                     trackNotFoundException.getMessage(),
@@ -64,6 +66,7 @@ public class TrackController {
 
     /**
      * Get all tracks
+     *
      * @return All tracks in the database
      */
     @GetMapping("track")
@@ -81,6 +84,7 @@ public class TrackController {
 
     /**
      * Search Track By name.
+     *
      * @param trackName Name of the track to search.
      * @return List of tracks
      */
@@ -101,6 +105,7 @@ public class TrackController {
 
     /**
      * Delete track by ID
+     *
      * @param id Track Id to be deleted
      * @return Deleted Track
      */
@@ -121,6 +126,7 @@ public class TrackController {
 
     /**
      * Delete all tracks in the database.
+     *
      * @return Success Message when all tracks are deleted.
      */
     @DeleteMapping("track")
@@ -131,13 +137,23 @@ public class TrackController {
 
     /**
      * Update Track by Id.
-     * @param id Id of the track to be updated.
+     *
+     * @param id    Id of the track to be updated.
      * @param track Track object containing updated track details.
      * @return Updated track
      */
     @PutMapping("track/{id}")
-    public ResponseEntity<?> updateTrackById(@PathVariable("id") int id ,@RequestBody Track track) {
-        Track updatedTrack = trackService.updateTrackById(id,track);
-        return new ResponseEntity<>(updatedTrack, HttpStatus.OK);
+    public ResponseEntity<?> updateTrackById(@PathVariable("id") int id, @RequestBody Track track) {
+        Track updatedTrack = null;
+        ResponseEntity responseEntity = null;
+        try {
+            updatedTrack = trackService.updateTrackById(id, track);
+            responseEntity = new ResponseEntity<>(updatedTrack, HttpStatus.OK);
+        } catch (TrackNotFoundException trackNotFoundException) {
+            responseEntity = new ResponseEntity<>(
+                    trackNotFoundException.getMessage(),
+                    HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 }
