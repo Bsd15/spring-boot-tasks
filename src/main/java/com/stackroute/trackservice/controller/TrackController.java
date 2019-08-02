@@ -80,8 +80,17 @@ public class TrackController {
      */
     @DeleteMapping("track/{id}")
     public ResponseEntity<?> deleteTrackById(@PathVariable int id) {
-        Track deletedTrack = trackService.deleteTrackById(id);
-        return new ResponseEntity<>(deletedTrack, HttpStatus.OK);
+        Track deletedTrack = null;
+        ResponseEntity responseEntity;
+        try {
+            deletedTrack = trackService.deleteTrackById(id);
+            responseEntity = new ResponseEntity<>(deletedTrack, HttpStatus.OK);
+        } catch (TrackNotFoundException trackNotFoundException) {
+            responseEntity = new ResponseEntity<>(
+                    trackNotFoundException.getMessage(),
+                    HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 
     /**
