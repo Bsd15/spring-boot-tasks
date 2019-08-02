@@ -14,11 +14,14 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TrackServiceApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
+//   TrackService to perform database operations.
     @Autowired
-    TrackService trackService;
+    private TrackService trackService;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        Track track1 = new Track(1,"Track 1", "Comment 1");
+//        Create seed data objects
+        Track track1 = new Track(1, "Track 1", "Comment 1");
         Track track2 = new Track(2, "Track 2", "Comment 2");
         Track track3 = new Track(3, "Track 3", "Comment 3");
         try {
