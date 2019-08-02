@@ -14,6 +14,6 @@ import java.util.List;
 public interface TrackRepository extends JpaRepository<Track, Integer> {
 //    Select * from is not added as it's boilerplate code and will be added automatically
 //    Ref: https://www.youtube.com/watch?v=WTEGvLXxyOY
-    @Query("select track from Track track where track.trackName like ?1")
+    @Query("select track from Track track where track.trackName like %?1%")
     List<Track> searchTrackByName(String trackName);
 }
