@@ -1,6 +1,7 @@
 package com.stackroute.trackservice.controller;
 
 import com.stackroute.trackservice.domain.Track;
+import com.stackroute.trackservice.exceptions.TrackNotFoundException;
 import com.stackroute.trackservice.service.TrackService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,17 @@ public class TrackController {
      */
     @GetMapping("tracks/{trackName}")
     public ResponseEntity<?> searchTrackByName(@PathVariable String trackName) {
-        List<Track> foundTracksList = trackService.searchTrackByName(trackName);
-        return new ResponseEntity<>(foundTracksList, HttpStatus.FOUND);
+        List<Track> foundTracksList = null;
+        ResponseEntity<?> responseEntity = null;
+        try {
+            foundTracksList = trackService.searchTrackByName(trackName);
+            responseEntity = new ResponseEntity<>(foundTracksList, HttpStatus.FOUND);
+        } catch (TrackNotFoundException trackNotFoundException) {
+            responseEntity = new ResponseEntity<>(
+                    trackNotFoundException.getMessage(),
+                    HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 
     /**
