@@ -50,6 +50,12 @@ public class TrackServiceImpl implements TrackService {
         return trackRepository.findAll();
     }
 
+    @Override
+    public List<Track> searchTrackByName(String trackName) {
+        List<Track> foundTracksList = trackRepository.searchTrackByName(trackName);
+        return foundTracksList;
+    }
+
     /**
      * First checks the track is present in the database and stores in a Optional.
      * If the track is present then deletes the track in the database and return the track

@@ -51,6 +51,12 @@ public class TrackController {
         return new ResponseEntity<>(trackList, HttpStatus.FOUND);
     }
 
+    @GetMapping("track/search/name/{trackName}")
+    public ResponseEntity<?> searchTrackByName(@PathVariable String trackName) {
+        List<Track> foundTracksList = trackService.searchTrackByName(trackName);
+        return new ResponseEntity<>(foundTracksList, HttpStatus.FOUND);
+    }
+
     /**
      * Delete track by ID
      * @param id Track Id to be deleted
