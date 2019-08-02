@@ -68,8 +68,15 @@ public class TrackController {
      */
     @GetMapping("track")
     public ResponseEntity<?> getAllTracks() {
-        List<Track> trackList = trackService.getAllTracks();
-        return new ResponseEntity<>(trackList, HttpStatus.FOUND);
+        List<Track> trackList = null;
+        ResponseEntity responseEntity = null;
+        try {
+            trackList = trackService.getAllTracks();
+            responseEntity = new ResponseEntity<>(trackList, HttpStatus.FOUND);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 
     /**
