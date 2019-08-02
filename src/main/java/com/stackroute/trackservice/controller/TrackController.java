@@ -1,6 +1,7 @@
 package com.stackroute.trackservice.controller;
 
 import com.stackroute.trackservice.domain.Track;
+import com.stackroute.trackservice.exceptions.TrackAlreadyExistsException;
 import com.stackroute.trackservice.exceptions.TrackNotFoundException;
 import com.stackroute.trackservice.service.TrackService;
 import io.swagger.annotations.Api;
@@ -28,8 +29,17 @@ public class TrackController {
      */
     @PostMapping("track")
     public ResponseEntity<?> saveTrack(@RequestBody Track track) {
-        Track newTrack = trackService.saveTrack(track);
-        return new ResponseEntity<>(newTrack, HttpStatus.CREATED);
+        Track newTrack = null;
+        ResponseEntity responseEntity = null;
+        try {
+            newTrack = trackService.saveTrack(track);
+            responseEntity = new ResponseEntity<>(newTrack, HttpStatus.CREATED);
+        } catch (TrackAlreadyExistsException trackAlreadyExistsException) {
+            responseEntity = new ResponseEntity<>(
+                    trackAlreadyExistsException.getMessage(),
+                    HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 
     /**
@@ -39,8 +49,17 @@ public class TrackController {
      */
     @GetMapping("track/{id}")
     public ResponseEntity<?> getTrack(@PathVariable int id) {
-        Track retrievedTrack = trackService.getTrack(id);
-        return new ResponseEntity<>(retrievedTrack,HttpStatus.FOUND);
+        Track retrievedTrack = null;
+        ResponseEntity responseEntity = null;
+        try {
+            retrievedTrack = trackService.getTrack(id);
+            responseEntity = new ResponseEntity<>(retrievedTrack,HttpStatus.FOUND);
+        } catch (TrackNotFoundException trackNotFoundException) {
+            responseEntity = new ResponseEntity<>(
+                    trackNotFoundException.getMessage(),
+                    HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 
     /**
