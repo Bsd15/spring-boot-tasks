@@ -1,6 +1,8 @@
 package com.stackroute.trackservice.service;
 
 import com.stackroute.trackservice.domain.Track;
+import com.stackroute.trackservice.exceptions.TrackAlreadyExistsException;
+import com.stackroute.trackservice.exceptions.TrackNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,17 +13,17 @@ import java.util.Optional;
  */
 public interface TrackService {
 
-    public Track saveTrack(Track track);
+    public Track saveTrack(Track track) throws TrackAlreadyExistsException;
 
-    public Track getTrack(int id);
+    public Track getTrack(int id) throws TrackNotFoundException;
 
     public List<Track> getAllTracks();
 
-    public List<Track> searchTrackByName(String trackName);
+    public List<Track> searchTrackByName(String trackName) throws TrackNotFoundException;
 
-    public Track deleteTrackById(int id);
+    public Track deleteTrackById(int id) throws TrackNotFoundException;
 
-    public void deleteAllTracks();
+    public void deleteAllTracks() throws TrackNotFoundException;
 
-    public Track updateTrackById(int trackId, Track updatedTrack);
+    public Track updateTrackById(int trackId, Track updatedTrack) throws TrackNotFoundException;
 }

@@ -1,6 +1,8 @@
 package com.stackroute.trackservice.service;
 
 import com.stackroute.trackservice.domain.Track;
+import com.stackroute.trackservice.exceptions.TrackAlreadyExistsException;
+import com.stackroute.trackservice.exceptions.TrackNotFoundException;
 import com.stackroute.trackservice.repository.TrackRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +24,14 @@ public class TrackServiceImpl implements TrackService {
      * Insert track into the database.
      * @param track Track to be inserted in the database
      * @return Track created after inserting into the database.
+     * @throws TrackAlreadyExistsException When a Track with same Id already exists.
      */
     @Override
-    public Track saveTrack(Track track) {
+    public Track saveTrack(Track track) throws TrackAlreadyExistsException {
         if (track != null) {
+            if (trackRepository.existsById(track.getTrackId())) {
+                throw new TrackAlreadyExistsException("Track is already present");
+            }
             return trackRepository.save(track);
         }
         return track;
@@ -35,9 +41,13 @@ public class TrackServiceImpl implements TrackService {
      * Finds the track in the database using the trackId.
      * @param id ID of the track to get from database
      * @return Track object
+     * @throws TrackNotFoundException
      */
     @Override
-    public Track getTrack(int id) {
+    public Track getTrack(int id) throws TrackNotFoundException {
+        if (!trackRepository.existsById(id)) {
+            throw new TrackNotFoundException("Track not Found");
+        }
         return trackRepository.findById(id).get();
     }
 
@@ -54,10 +64,14 @@ public class TrackServiceImpl implements TrackService {
      * Search tracks by Name
      * @param trackName Name of the track to be searched
      * @return List of tracks found with the given name
+     * @throws TrackNotFoundException
      */
     @Override
-    public List<Track> searchTrackByName(String trackName) {
+    public List<Track> searchTrackByName(String trackName) throws TrackNotFoundException {
         List<Track> foundTracksList = trackRepository.searchTrackByName(trackName);
+        if (foundTracksList.isEmpty()) {
+            throw new TrackNotFoundException("No tracks found with the given track name");
+        }
         return foundTracksList;
     }
 
@@ -67,16 +81,17 @@ public class TrackServiceImpl implements TrackService {
      * else return null.
      * @param id Id of the track to be deleted.
      * @return Track if deleted or null if the track is not found in the database.
+     * @throws TrackNotFoundException
      */
     @Override
-    public Track deleteTrackById(int id) {
+    public Track deleteTrackById(int id) throws TrackNotFoundException {
         Optional<Track> trackToBeDeleted = trackRepository.findById(id);
         if (trackToBeDeleted.isPresent()) {
             trackRepository.deleteById(id);
             return trackToBeDeleted.get();
         }
 //        If the track to be deleted is not present in the database.
-        return null;
+        throw new TrackNotFoundException("Track is not found in the database");
     }
 
     /**
@@ -93,14 +108,18 @@ public class TrackServiceImpl implements TrackService {
      * @param trackId Id of the track to be updated
      * @param updatedTrack Track object containing the updated details
      * @return Updated track.
+     * @throws TrackNotFoundException
      */
     @Override
-    public Track updateTrackById(int trackId, Track updatedTrack) {
+    public Track updateTrackById(int trackId, Track updatedTrack) throws TrackNotFoundException {
 //        Gets the reference to the Track object (lazy)
-        Track trackToUpdate = trackRepository.getOne(trackId);
-        trackToUpdate.setTrackName(updatedTrack.getTrackName());
-        trackToUpdate.setComments(updatedTrack.getComments());
-        return trackRepository.save(trackToUpdate);
+        if (trackRepository.existsById(updatedTrack.getTrackId())) {
+            Track trackToUpdate = trackRepository.getOne(trackId);
+            trackToUpdate.setTrackName(updatedTrack.getTrackName());
+            trackToUpdate.setComments(updatedTrack.getComments());
+            return trackRepository.save(trackToUpdate);
+        }
+        throw new TrackNotFoundException("Track not found in the database");
     }
 
 }
