@@ -15,8 +15,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class TrackServiceApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
 //   TrackService to perform database operations.
-    @Autowired
     private TrackService trackService;
+
+    @Autowired
+    public TrackServiceApplicationListener(TrackService trackService) {
+        this.trackService = trackService;
+    }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {

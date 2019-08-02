@@ -13,8 +13,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TrackServiceSeedDataCommandLineRunner implements CommandLineRunner {
-    @Autowired
     TrackService trackService;
+
+    @Autowired
+    public TrackServiceSeedDataCommandLineRunner(TrackService trackService) {
+        this.trackService = trackService;
+    }
 
     @Override
     public void run(String... args) throws Exception {
