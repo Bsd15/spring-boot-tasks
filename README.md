@@ -8,6 +8,8 @@ Task - 10: @Primary added to TrackServiceImpl and @Qualifier added in TrackServi
 
 Task - 11: Removed @Primary and @Qualifier to demonstrate profiles.
 
+Task - 12: Create database name "taskService" in mysql and add setting in application.properties.
+
 [Reference for @Query](http://zetcode.com/springboot/datajpaquery/)
 
 [Refrence for Swagger2](https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api)
@@ -21,3 +23,5 @@ Task - 11: Removed @Primary and @Qualifier to demonstrate profiles.
 [Reference for @Profiles #1](https://dzone.com/articles/spring-boot-profiles-1)
 
 [Reference for @Profile #2](https://www.baeldung.com/spring-profiles)
+
+[Reference for H2 to MySql. Task - 12](https://springframework.guru/configuring-spring-boot-for-mysql/)
