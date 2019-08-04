@@ -28,12 +28,8 @@ public class TrackServiceSeedDataCommandLineRunner implements CommandLineRunner 
     @Value("${track2.comments}")
     String comments; /*To be used to create track1 using Property source*/
 
-    /**
-     * Constructor takes TrackDummyServiceImpl as TrackService using Qualifier.
-     * @param trackService Takes TrackDummyServiceImpl as input.
-     */
     @Autowired
-    public TrackServiceSeedDataCommandLineRunner(@Qualifier("trackDummyServiceImpl") TrackService trackService) {
+    public TrackServiceSeedDataCommandLineRunner(TrackService trackService) {
         this.trackService = trackService;
     }
 

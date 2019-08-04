@@ -15,3 +15,7 @@ Task - 10: @Primary added to TrackServiceImpl and @Qualifier added in TrackServi
 [Reference for Task 8 #1](https://www.baeldung.com/properties-with-spring)
 
 [Reference for Task 8 #2](http://appsdeveloperblog.com/reading-application-properties-spring-boot/)
+
+[Reference for @Profiles #1](https://dzone.com/articles/spring-boot-profiles-1)
+
+[Reference for @Profile #2](https://www.baeldung.com/spring-profiles)
