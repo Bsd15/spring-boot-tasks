@@ -4,6 +4,7 @@ import com.stackroute.trackservice.domain.Track;
 import com.stackroute.trackservice.exceptions.TrackAlreadyExistsException;
 import com.stackroute.trackservice.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.PropertySource;
@@ -27,8 +28,12 @@ public class TrackServiceSeedDataCommandLineRunner implements CommandLineRunner 
     @Value("${track2.comments}")
     String comments; /*To be used to create track1 using Property source*/
 
+    /**
+     * Constructor takes TrackDummyServiceImpl as TrackService using Qualifier.
+     * @param trackService Takes TrackDummyServiceImpl as input.
+     */
     @Autowired
-    public TrackServiceSeedDataCommandLineRunner(TrackService trackService) {
+    public TrackServiceSeedDataCommandLineRunner(@Qualifier("trackDummyServiceImpl") TrackService trackService) {
         this.trackService = trackService;
     }
 
