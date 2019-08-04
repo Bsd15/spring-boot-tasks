@@ -6,6 +6,8 @@ Task - 8: Created 3 tracks using @Value, @PropertySource, Environment and @Confi
 
 Task - 10: @Primary added to TrackServiceImpl and @Qualifier added in TrackServiceSeedDataCommandLineRunner
 
+Task - 11: Removed @Primary and @Qualifier to demonstrate profiles.
+
 [Reference for @Query](http://zetcode.com/springboot/datajpaquery/)
 
 [Refrence for Swagger2](https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api)
