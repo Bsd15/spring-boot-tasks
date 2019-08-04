@@ -11,7 +11,6 @@ import javax.persistence.Id;
  * like trackId, trackName, comments.
  */
 @Entity
-@ConfigurationProperties("track")
 public class Track {
     @Id
     private int trackId;

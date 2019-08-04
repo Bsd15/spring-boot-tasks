@@ -28,9 +28,6 @@ public class TrackServiceSeedDataCommandLineRunner implements CommandLineRunner 
     String comments; /*To be used to create track1 using Property source*/
 
     @Autowired
-    Track track2; /*To be created using @ConfigurationProperties. See Track.*/
-
-    @Autowired
     public TrackServiceSeedDataCommandLineRunner(TrackService trackService) {
         this.trackService = trackService;
     }
@@ -43,7 +40,7 @@ public class TrackServiceSeedDataCommandLineRunner implements CommandLineRunner 
 //        Track track3 = new Track(6, "Track 6", "Comment from CommandLineRunner");
         try {
             trackService.saveTrack(track1);
-            trackService.saveTrack(track2);
+//            trackService.saveTrack(track2);
 //            trackService.saveTrack(track3);
         } catch (TrackAlreadyExistsException trackAlreadyExistsException) {
             trackAlreadyExistsException.printStackTrace();
