@@ -28,17 +28,17 @@ public class TrackController {
      * @return Newly created track
      */
     @PostMapping("track")
-    public ResponseEntity<?> saveTrack(@RequestBody Track track) {
+    public ResponseEntity<?> saveTrack(@RequestBody Track track) throws TrackAlreadyExistsException {
         Track newTrack = null;
         ResponseEntity responseEntity = null;
-        try {
+//        try {
             newTrack = trackService.saveTrack(track);
             responseEntity = new ResponseEntity<>(newTrack, HttpStatus.CREATED);
-        } catch (TrackAlreadyExistsException trackAlreadyExistsException) {
-            responseEntity = new ResponseEntity<>(
-                    trackAlreadyExistsException.getMessage(),
-                    HttpStatus.NOT_FOUND);
-        }
+//        } catch (TrackAlreadyExistsException trackAlreadyExistsException) {
+//            responseEntity = new ResponseEntity<>(
+//                    trackAlreadyExistsException.getMessage(),
+//                    HttpStatus.NOT_FOUND);
+//        }
         return responseEntity;
     }
 
@@ -49,17 +49,17 @@ public class TrackController {
      * @return Track
      */
     @GetMapping("track/{id}")
-    public ResponseEntity<?> getTrack(@PathVariable int id) {
+    public ResponseEntity<?> getTrack(@PathVariable int id) throws TrackNotFoundException {
         Track retrievedTrack = null;
         ResponseEntity responseEntity = null;
-        try {
+//        try {
             retrievedTrack = trackService.getTrack(id);
             responseEntity = new ResponseEntity<>(retrievedTrack, HttpStatus.FOUND);
-        } catch (TrackNotFoundException trackNotFoundException) {
-            responseEntity = new ResponseEntity<>(
-                    trackNotFoundException.getMessage(),
-                    HttpStatus.NOT_FOUND);
-        }
+//        } catch (TrackNotFoundException trackNotFoundException) {
+//            responseEntity = new ResponseEntity<>(
+//                    trackNotFoundException.getMessage(),
+//                    HttpStatus.NOT_FOUND);
+//        }
         return responseEntity;
     }
 
@@ -69,15 +69,15 @@ public class TrackController {
      * @return All tracks in the database
      */
     @GetMapping("track")
-    public ResponseEntity<?> getAllTracks() {
+    public ResponseEntity<?> getAllTracks() throws Exception {
         List<Track> trackList = null;
         ResponseEntity responseEntity = null;
-        try {
+//        try {
             trackList = trackService.getAllTracks();
             responseEntity = new ResponseEntity<>(trackList, HttpStatus.FOUND);
-        } catch (Exception e) {
-            responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+//        } catch (Exception e) {
+//            responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+//        }
         return responseEntity;
     }
 
@@ -88,17 +88,17 @@ public class TrackController {
      * @return List of tracks
      */
     @GetMapping("tracks/{trackName}")
-    public ResponseEntity<?> searchTrackByName(@PathVariable String trackName) {
+    public ResponseEntity<?> searchTrackByName(@PathVariable String trackName) throws TrackNotFoundException {
         List<Track> foundTracksList = null;
         ResponseEntity<?> responseEntity = null;
-        try {
+//        try {
             foundTracksList = trackService.searchTrackByName(trackName);
             responseEntity = new ResponseEntity<>(foundTracksList, HttpStatus.FOUND);
-        } catch (TrackNotFoundException trackNotFoundException) {
-            responseEntity = new ResponseEntity<>(
-                    trackNotFoundException.getMessage(),
-                    HttpStatus.NOT_FOUND);
-        }
+//        } catch (TrackNotFoundException trackNotFoundException) {
+//            responseEntity = new ResponseEntity<>(
+//                    trackNotFoundException.getMessage(),
+//                    HttpStatus.NOT_FOUND);
+//        }
         return responseEntity;
     }
 
@@ -109,17 +109,17 @@ public class TrackController {
      * @return Deleted Track
      */
     @DeleteMapping("track/{id}")
-    public ResponseEntity<?> deleteTrackById(@PathVariable int id) {
+    public ResponseEntity<?> deleteTrackById(@PathVariable int id) throws TrackNotFoundException {
         Track deletedTrack = null;
         ResponseEntity responseEntity;
-        try {
+//        try {
             deletedTrack = trackService.deleteTrackById(id);
             responseEntity = new ResponseEntity<>(deletedTrack, HttpStatus.OK);
-        } catch (TrackNotFoundException trackNotFoundException) {
-            responseEntity = new ResponseEntity<>(
-                    trackNotFoundException.getMessage(),
-                    HttpStatus.NOT_FOUND);
-        }
+//        } catch (TrackNotFoundException trackNotFoundException) {
+//            responseEntity = new ResponseEntity<>(
+//                    trackNotFoundException.getMessage(),
+//                    HttpStatus.NOT_FOUND);
+//        }
         return responseEntity;
     }
 
@@ -142,17 +142,17 @@ public class TrackController {
      * @return Updated track
      */
     @PutMapping("track/{id}")
-    public ResponseEntity<?> updateTrackById(@PathVariable("id") int id, @RequestBody Track track) {
+    public ResponseEntity<?> updateTrackById(@PathVariable("id") int id, @RequestBody Track track) throws TrackNotFoundException {
         Track updatedTrack = null;
         ResponseEntity responseEntity = null;
-        try {
+//        try {
             updatedTrack = trackService.updateTrackById(id, track);
             responseEntity = new ResponseEntity<>(updatedTrack, HttpStatus.OK);
-        } catch (TrackNotFoundException trackNotFoundException) {
-            responseEntity = new ResponseEntity<>(
-                    trackNotFoundException.getMessage(),
-                    HttpStatus.NOT_FOUND);
-        }
+//        } catch (TrackNotFoundException trackNotFoundException) {
+//            responseEntity = new ResponseEntity<>(
+//                    trackNotFoundException.getMessage(),
+//                    HttpStatus.NOT_FOUND);
+//        }
         return responseEntity;
     }
 }

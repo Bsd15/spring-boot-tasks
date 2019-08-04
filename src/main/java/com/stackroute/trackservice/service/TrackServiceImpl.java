@@ -30,7 +30,7 @@ public class TrackServiceImpl implements TrackService {
     public Track saveTrack(Track track) throws TrackAlreadyExistsException {
         if (track != null) {
             if (trackRepository.existsById(track.getTrackId())) {
-                throw new TrackAlreadyExistsException("Track is already present");
+                throw new TrackAlreadyExistsException();
             }
             return trackRepository.save(track);
         }
@@ -46,7 +46,7 @@ public class TrackServiceImpl implements TrackService {
     @Override
     public Track getTrack(int id) throws TrackNotFoundException {
         if (!trackRepository.existsById(id)) {
-            throw new TrackNotFoundException("Track not Found");
+            throw new TrackNotFoundException();
         }
         return trackRepository.findById(id).get();
     }
@@ -76,7 +76,7 @@ public class TrackServiceImpl implements TrackService {
     public List<Track> searchTrackByName(String trackName) throws TrackNotFoundException {
         List<Track> foundTracksList = trackRepository.searchTrackByName(trackName);
         if (foundTracksList.isEmpty()) {
-            throw new TrackNotFoundException("No tracks found with the given track name");
+            throw new TrackNotFoundException();
         }
         return foundTracksList;
     }
@@ -97,7 +97,7 @@ public class TrackServiceImpl implements TrackService {
             return trackToBeDeleted.get();
         }
 //        If the track to be deleted is not present in the database.
-        throw new TrackNotFoundException("Track is not found in the database");
+        throw new TrackNotFoundException();
     }
 
     /**
@@ -125,7 +125,7 @@ public class TrackServiceImpl implements TrackService {
             trackToUpdate.setComments(updatedTrack.getComments());
             return trackRepository.save(trackToUpdate);
         }
-        throw new TrackNotFoundException("Track not found in the database");
+        throw new TrackNotFoundException();
     }
 
 }
