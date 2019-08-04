@@ -40,7 +40,7 @@ public class TrackServiceApplicationListener implements ApplicationListener<Cont
     @Value("${track.id}")
     private int id; /*Track id from application.properties*/
 
-//    Values from track2.properties get by @ConfigurationProperties
+//    Values from track3 properties get by @ConfigurationProperties
     private int trackId;
     private String trackName;
     private String comments;
@@ -48,8 +48,6 @@ public class TrackServiceApplicationListener implements ApplicationListener<Cont
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 //        Create seed data objects
-
-
         Track track1 = new Track( id, environment.getProperty("track.trackName"), environment.getProperty("track.comments"));
         Track track2 = new Track(trackId, trackName, comments);
 //        Track track3 = new Track(3, "Track 3", "Comment 3");
