@@ -1,5 +1,8 @@
 package com.stackroute.trackservice.domain;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,6 +11,7 @@ import javax.persistence.Id;
  * like trackId, trackName, comments.
  */
 @Entity
+@ConfigurationProperties("track")
 public class Track {
     @Id
     private int trackId;
