@@ -3,17 +3,15 @@ package com.stackroute.trackservice.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 /**
  * Track entity to store tracks details
  * like trackId, trackName, comments.
  */
-@Entity
+@Document
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

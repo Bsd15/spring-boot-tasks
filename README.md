@@ -10,6 +10,8 @@ Task - 11: Removed @Primary and @Qualifier to demonstrate profiles.
 
 Task - 12: Create database name "taskService" in mysql and add setting in application.properties.
 
+Changed From MySQL to MongoDB.
+
 [Reference for @Query](http://zetcode.com/springboot/datajpaquery/)
 
 [Refrence for Swagger2](https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api)

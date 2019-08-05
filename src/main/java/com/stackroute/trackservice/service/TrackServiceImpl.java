@@ -77,7 +77,7 @@ public class TrackServiceImpl implements TrackService {
      */
     @Override
     public List<Track> searchTrackByName(String trackName) throws TrackNotFoundException {
-        List<Track> foundTracksList = trackRepository.searchTrackByName(trackName);
+        List<Track> foundTracksList = trackRepository.findByTrackName(trackName);
         if (foundTracksList.isEmpty()) {
             throw new TrackNotFoundException();
         }
@@ -123,10 +123,13 @@ public class TrackServiceImpl implements TrackService {
     public Track updateTrackById(int trackId, Track updatedTrack) throws TrackNotFoundException {
 //        Gets the reference to the Track object (lazy)
         if (trackRepository.existsById(updatedTrack.getTrackId())) {
-            Track trackToUpdate = trackRepository.getOne(trackId);
-            trackToUpdate.setTrackName(updatedTrack.getTrackName());
-            trackToUpdate.setComments(updatedTrack.getComments());
-            return trackRepository.save(trackToUpdate);
+            Optional<Track> optionalTrack = trackRepository.findById(trackId);
+            if (optionalTrack.isPresent()) {
+                Track trackToUpdate = optionalTrack.get();
+                trackToUpdate.setTrackName(updatedTrack.getTrackName());
+                trackToUpdate.setComments(updatedTrack.getComments());
+                return trackRepository.save(trackToUpdate);
+            }
         }
         throw new TrackNotFoundException();
     }
