@@ -74,7 +74,7 @@ public class TrackController {
         ResponseEntity responseEntity = null;
 //        try {
             trackList = trackService.getAllTracks();
-            responseEntity = new ResponseEntity<>(trackList, HttpStatus.FOUND);
+            responseEntity = new ResponseEntity<>(trackList, HttpStatus.OK);
 //        } catch (Exception e) {
 //            responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 //        }

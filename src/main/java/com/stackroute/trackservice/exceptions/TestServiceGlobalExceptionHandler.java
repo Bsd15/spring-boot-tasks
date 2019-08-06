@@ -22,6 +22,12 @@ public class TestServiceGlobalExceptionHandler extends ResponseEntityExceptionHa
     @ExceptionHandler(TrackNotFoundException.class)
     public ResponseEntity<?> handleTrackNotFoundException(TrackNotFoundException trackNotFoundException, WebRequest request) {
         String message = "Track not found in database.";
-        return handleExceptionInternal(trackNotFoundException, message, new HttpHeaders(), HttpStatus.CONFLICT, request);
+        return handleExceptionInternal(trackNotFoundException, message, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleGeneralException(Exception exception, WebRequest request) {
+        return handleExceptionInternal(exception, exception.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+
     }
 }
