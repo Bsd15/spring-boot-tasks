@@ -13,11 +13,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  */
 @ControllerAdvice
 public class TestServiceGlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(TrackAlreadyExistsException.class)
-    public ResponseEntity<?> handleTrackAlreadyExistsExceptions(TrackAlreadyExistsException trackAlreadyExistsException, WebRequest request) {
-        String message = "Track already exists in Database.";
-        return handleExceptionInternal(trackAlreadyExistsException, message, new HttpHeaders(), HttpStatus.CONFLICT, request);
-    }
+//    @ExceptionHandler(TrackAlreadyExistsException.class)
+//    public ResponseEntity<?> handleTrackAlreadyExistsExceptions(TrackAlreadyExistsException trackAlreadyExistsException, WebRequest request) {
+//        String message = "Track already exists in Database.";
+//        return handleExceptionInternal(trackAlreadyExistsException, message, new HttpHeaders(), HttpStatus.CONFLICT, request);
+//    }
 
     @ExceptionHandler(TrackNotFoundException.class)
     public ResponseEntity<?> handleTrackNotFoundException(TrackNotFoundException trackNotFoundException, WebRequest request) {
