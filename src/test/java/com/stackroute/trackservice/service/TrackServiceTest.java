@@ -2,6 +2,7 @@ package com.stackroute.trackservice.service;
 
 import com.stackroute.trackservice.domain.Track;
 import com.stackroute.trackservice.exceptions.TrackAlreadyExistsException;
+import com.stackroute.trackservice.exceptions.TrackNotFoundException;
 import com.stackroute.trackservice.repository.TrackRepository;
 import org.junit.After;
 import org.junit.Before;
@@ -59,7 +60,6 @@ public class TrackServiceTest {
     /**
      * Test - saveTrack()
      * Should throw TrackAlreadyExistsException
-     * FIXME Test fails
      * @throws TrackAlreadyExistsException
      */
 
@@ -70,9 +70,64 @@ public class TrackServiceTest {
 //        Track resultTrack2=trackService.saveTrack(track);
     }
 
-//    @Test
-//    public void givenTrackIdShouldReturnTrack() {
-//        when(trackRepository.findById((int) any())).thenReturn(new Optional<>());
-//    }
+
+    /**
+     * Test - TrackService.getTrack()
+     * Check if track is returned when trackId is passed.
+     * @throws TrackNotFoundException
+     */
+    @Test
+    public void givenIdShouldReturnTrack() throws TrackNotFoundException {
+        when(trackRepository.existsById(track.getTrackId())).thenReturn(true);
+        when(trackRepository.findById(track.getTrackId())).thenReturn(Optional.of(track));
+        Track resultTrack = trackService.getTrack(track.getTrackId());
+        assertEquals(track, resultTrack);
+    }
+
+    /**
+     * Test - TrackService deleteTrackById()
+     * Method should throw TrackNotFoundException
+     * @throws TrackNotFoundException
+     */
+    @Test(expected = TrackNotFoundException.class)
+    public void givenIdToDeleteShouldReturnTrackNotFoundException() throws TrackNotFoundException {
+        Track resultTrack = trackService.getTrack(track.getTrackId());
+        trackService.deleteTrackById(track.getTrackId());
+    }
+
+    /**
+     * Test - TrackService updateTrackById()
+     * Method should throw TrackNotFoundException
+     * @throws TrackNotFoundException
+     */
+    @Test(expected = TrackNotFoundException.class)
+    public void givenIdToUpdateShouldReturnTrackNotFoundException() throws TrackNotFoundException {
+        Track resultTrack = trackService.getTrack(track.getTrackId());
+        trackService.updateTrackById(track.getTrackId(), track);
+    }
+
+    /**
+     * Test - TrackService deleteTrackById
+     * Method should return the same track after deleting.
+     * @throws TrackNotFoundException
+     */
+    @Test
+    public void givenIdShouldReturnDeletedTrack() throws TrackNotFoundException {
+        when(trackRepository.existsById(track.getTrackId())).thenReturn(true);
+        when(trackRepository.findById(track.getTrackId())).thenReturn(Optional.of(track));
+        Track savedTrack = trackService.deleteTrackById(track.getTrackId());
+        assertEquals(track, savedTrack);
+    }
+
+    /**
+     * Test - getAllTracks()
+     */
+    @Test
+    public void givenMethodShouldReturnTrackList() throws Exception {
+        trackList.add(track);
+        when(trackRepository.findAll()).thenReturn(trackList);
+        List<Track> resultTrackList = trackService.getAllTracks();
+        assertEquals(trackList, resultTrackList);
+    }
 
 }
