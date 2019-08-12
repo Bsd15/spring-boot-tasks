@@ -52,10 +52,12 @@ public class TrackServiceTest {
     @Test
     public void givenTrackToSaveShouldReturnTrack() throws Exception {
         when(trackRepository.save((Track) any())).thenReturn(track);
+        when(trackRepository.existsById(track.getTrackId())).thenReturn(false);
         Track resultTrack = trackService.saveTrack(track);
         assertEquals("givenTrackToSaveShouldReturnTrack(): save() did not return Track object.",
                 track, resultTrack);
         verify(trackRepository, times(1)).save(track);
+        verify(trackRepository, times(1)).existsById(track.getTrackId());
     }
 
     /**
