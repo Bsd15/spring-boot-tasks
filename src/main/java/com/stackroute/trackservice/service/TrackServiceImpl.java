@@ -29,7 +29,7 @@ public class TrackServiceImpl implements TrackService {
      * @return Track created after inserting into the database.
      * @throws TrackAlreadyExistsException When a Track with same Id already exists.
      */
-    public Track saveTrack(Track track) throws TrackAlreadyExistsException {
+    public Track saveTrack(Track track) throws TrackAlreadyExistsException, Exception {
         if (track != null) {
             if (trackRepository.existsById(track.getTrackId())) {
                 throw new TrackAlreadyExistsException("print error  ");
@@ -46,7 +46,7 @@ public class TrackServiceImpl implements TrackService {
      * @throws TrackNotFoundException
      */
     @Override
-    public Track getTrack(int id) throws TrackNotFoundException {
+    public Track getTrack(int id) throws TrackNotFoundException, Exception {
         if (!trackRepository.existsById(id)) {
             throw new TrackNotFoundException();
         }
@@ -75,7 +75,7 @@ public class TrackServiceImpl implements TrackService {
      * @throws TrackNotFoundException
      */
     @Override
-    public List<Track> searchTrackByName(String trackName) throws TrackNotFoundException {
+    public List<Track> searchTrackByName(String trackName) throws TrackNotFoundException, Exception {
         List<Track> foundTracksList = trackRepository.findByTrackName(trackName);
         if (foundTracksList.isEmpty()) {
             throw new TrackNotFoundException();
@@ -92,7 +92,7 @@ public class TrackServiceImpl implements TrackService {
      * @throws TrackNotFoundException
      */
     @Override
-    public Track deleteTrackById(int id) throws TrackNotFoundException {
+    public Track deleteTrackById(int id) throws TrackNotFoundException, Exception {
         Optional<Track> trackToBeDeleted = trackRepository.findById(id);
         if (trackToBeDeleted.isPresent()) {
             trackRepository.deleteById(id);
@@ -106,8 +106,9 @@ public class TrackServiceImpl implements TrackService {
      * Deletes all the tracks in the database.
      */
     @Override
-    public void deleteAllTracks() {
-        trackRepository.deleteAll();
+    public boolean deleteAllTracks() throws Exception{
+            trackRepository.deleteAll();
+            return true;
     }
 
 
@@ -119,7 +120,7 @@ public class TrackServiceImpl implements TrackService {
      * @throws TrackNotFoundException
      */
     @Override
-    public Track updateTrackById(int trackId, Track updatedTrack) throws TrackNotFoundException {
+    public Track updateTrackById(int trackId, Track updatedTrack) throws TrackNotFoundException, Exception {
 //        Gets the reference to the Track object (lazy)
         if (trackRepository.existsById(updatedTrack.getTrackId())) {
             Optional<Track> optionalTrack = trackRepository.findById(trackId);

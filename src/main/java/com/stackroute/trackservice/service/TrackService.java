@@ -13,17 +13,17 @@ import java.util.Optional;
  */
 public interface TrackService {
 
-    public Track saveTrack(Track track) throws TrackAlreadyExistsException;
+    public Track saveTrack(Track track) throws TrackAlreadyExistsException, Exception;
 
-    public Track getTrack(int id) throws TrackNotFoundException;
+    public Track getTrack(int id) throws TrackNotFoundException, Exception;
 
     public List<Track> getAllTracks() throws Exception;
 
-    public List<Track> searchTrackByName(String trackName) throws TrackNotFoundException;
+    public List<Track> searchTrackByName(String trackName) throws TrackNotFoundException, Exception;
 
-    public Track deleteTrackById(int id) throws TrackNotFoundException;
+    public Track deleteTrackById(int id) throws TrackNotFoundException, Exception;
 
-    public void deleteAllTracks();
+    public boolean deleteAllTracks() throws Exception;
 
-    public Track updateTrackById(int trackId, Track updatedTrack) throws TrackNotFoundException;
+    public Track updateTrackById(int trackId, Track updatedTrack) throws TrackNotFoundException, Exception;
 }
