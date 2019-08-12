@@ -56,6 +56,12 @@ public class TrackControllerTest {
         trackList.add(track);
     }
 
+    @After
+    public void tearDown() {
+        track = null;
+        trackList = null;
+    }
+
     /**
      * Test - /api/v1/track - saveTrack()
      * Check if saveTrack return track after saving it.
