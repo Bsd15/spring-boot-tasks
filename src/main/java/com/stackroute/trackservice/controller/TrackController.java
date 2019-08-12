@@ -28,7 +28,7 @@ public class TrackController {
      * @return Newly created track
      */
     @PostMapping("track")
-    public ResponseEntity<?> saveTrack(@RequestBody Track track) throws TrackAlreadyExistsException {
+    public ResponseEntity<?> saveTrack(@RequestBody Track track) throws TrackAlreadyExistsException, Exception {
         Track newTrack = null;
         ResponseEntity responseEntity = null;
 //        try {
@@ -49,7 +49,7 @@ public class TrackController {
      * @return Track
      */
     @GetMapping("track/{id}")
-    public ResponseEntity<?> getTrack(@PathVariable int id) throws TrackNotFoundException {
+    public ResponseEntity<?> getTrack(@PathVariable int id) throws TrackNotFoundException, Exception {
         Track retrievedTrack = null;
         ResponseEntity responseEntity = null;
 //        try {
@@ -88,7 +88,7 @@ public class TrackController {
      * @return List of tracks
      */
     @GetMapping("tracks/{trackName}")
-    public ResponseEntity<?> searchTrackByName(@PathVariable String trackName) throws TrackNotFoundException {
+    public ResponseEntity<?> searchTrackByName(@PathVariable String trackName) throws TrackNotFoundException, Exception {
         List<Track> foundTracksList = null;
         ResponseEntity<?> responseEntity = null;
 //        try {
@@ -109,7 +109,7 @@ public class TrackController {
      * @return Deleted Track
      */
     @DeleteMapping("track/{id}")
-    public ResponseEntity<?> deleteTrackById(@PathVariable int id) throws TrackNotFoundException {
+    public ResponseEntity<?> deleteTrackById(@PathVariable int id) throws TrackNotFoundException, Exception {
         Track deletedTrack = null;
         ResponseEntity responseEntity;
 //        try {
@@ -129,7 +129,7 @@ public class TrackController {
      * @return Success Message when all tracks are deleted.
      */
     @DeleteMapping("track")
-    public ResponseEntity<?> deleteAllTracks() {
+    public ResponseEntity<?> deleteAllTracks()  throws Exception{
         trackService.deleteAllTracks();
         return new ResponseEntity<>("Deleted ", HttpStatus.OK);
     }
@@ -142,7 +142,7 @@ public class TrackController {
      * @return Updated track
      */
     @PutMapping("track/{id}")
-    public ResponseEntity<?> updateTrackById(@PathVariable("id") int id, @RequestBody Track track) throws TrackNotFoundException {
+    public ResponseEntity<?> updateTrackById(@PathVariable("id") int id, @RequestBody Track track) throws TrackNotFoundException, Exception {
         Track updatedTrack = null;
         ResponseEntity responseEntity = null;
 //        try {
