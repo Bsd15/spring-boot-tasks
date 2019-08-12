@@ -17,16 +17,16 @@ import org.springframework.stereotype.Component;
 @Component
 @PropertySource("track2.properties")
 public class TrackServiceSeedDataCommandLineRunner implements CommandLineRunner {
-    TrackService trackService;
+    private TrackService trackService;
 
     @Value("${track2.trackId}")
-    int trackId; /*To be used to create track1 using Property source*/
+    private int trackId; /*To be used to create track1 using Property source*/
 
     @Value("${track2.trackName}")
-    String trackName; /*To be used to create track1 using Property source*/
+    private String trackName; /*To be used to create track1 using Property source*/
 
     @Value("${track2.comments}")
-    String comments; /*To be used to create track1 using Property source*/
+    private String comments; /*To be used to create track1 using Property source*/
 
     @Autowired
     public TrackServiceSeedDataCommandLineRunner(TrackService trackService) {
