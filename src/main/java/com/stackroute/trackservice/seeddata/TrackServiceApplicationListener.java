@@ -57,6 +57,8 @@ public class TrackServiceApplicationListener implements ApplicationListener<Cont
 //            trackService.saveTrack(track3);
         } catch (TrackAlreadyExistsException trackAlreadyExistsException) {
             trackAlreadyExistsException.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -37,8 +37,8 @@ public class TrackDummyServiceImpl implements TrackService {
     }
 
     @Override
-    public void deleteAllTracks() {
-
+    public boolean deleteAllTracks() {
+        return true;
     }
 
     @Override

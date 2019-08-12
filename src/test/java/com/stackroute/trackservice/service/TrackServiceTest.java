@@ -71,6 +71,8 @@ public class TrackServiceTest {
         when(trackRepository.existsById(track.getTrackId())).thenReturn(true);
         Track resultTrack = trackService.saveTrack(track);
 //        Track resultTrack2=trackService.saveTrack(track);
+        verify(trackRepository, times(0)).save(track);
+        verify(trackRepository, times(1)).existsById(track.getTrackId());
     }
 
 
@@ -85,6 +87,8 @@ public class TrackServiceTest {
         when(trackRepository.findById(track.getTrackId())).thenReturn(Optional.of(track));
         Track resultTrack = trackService.getTrack(track.getTrackId());
         assertEquals(track, resultTrack);
+        verify(trackRepository, times(1)).existsById(track.getTrackId());
+        verify(trackRepository, times(1)).findById(track.getTrackId());
     }
 
     /**
@@ -96,6 +100,7 @@ public class TrackServiceTest {
     public void givenIdToDeleteShouldReturnTrackNotFoundException() throws TrackNotFoundException, Exception {
         Track resultTrack = trackService.getTrack(track.getTrackId());
         trackService.deleteTrackById(track.getTrackId());
+        verify(trackRepository, times(1)).delete(track);
     }
 
     /**
@@ -107,6 +112,7 @@ public class TrackServiceTest {
     public void givenIdToUpdateShouldReturnTrackNotFoundException() throws Exception {
         Track resultTrack = trackService.getTrack(track.getTrackId());
         trackService.updateTrackById(track.getTrackId(), track);
+        verify(trackRepository, times(0)).save(track);
     }
 
     /**
@@ -120,6 +126,7 @@ public class TrackServiceTest {
         when(trackRepository.findById(track.getTrackId())).thenReturn(Optional.of(track));
         Track savedTrack = trackService.deleteTrackById(track.getTrackId());
         assertEquals(track, savedTrack);
+        verify(trackRepository,times(1)).delete(track);
     }
 
     /**
@@ -131,6 +138,7 @@ public class TrackServiceTest {
         when(trackRepository.findAll()).thenReturn(trackList);
         List<Track> resultTrackList = trackService.getAllTracks();
         assertEquals(trackList, resultTrackList);
+        verify(trackRepository, times(1)).findAll();
     }
 
 }
